@@ -33,13 +33,11 @@ export class LoginService {
     }
     
     generateAccessToken(user) {
-        
-      
         return sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-      }
-      
+    }
+    
     generateRefreshToken(user) {
         return sign(user, REFRESH_TOKEN_SECRET);
-      }
+    }
 }
 
