@@ -18,7 +18,8 @@ describe('SignUpController', () => {
           },
         },
       ],
-    }).compile();
+    })
+    .compile();
 
     signUpController = module.get<SignUpController>(SignUpController);
     signUpService = module.get<SignUpService>(SignUpService);
