@@ -27,12 +27,12 @@ describe('SignUpService', () => {
     userRepository = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
-  it('debería estar definido', () => {
+  it('Should be defined', () => {
     expect(signUpService).toBeDefined();
   });
 
   describe('create', () => {
-    it('debería lanzar un error si el usuario ya existe', async () => {
+    it('Should throw an error if the user already exists', async () => {
       const createUserDto: CreteUserDto = { name: 'John', surname: 'Doe', email: 'john@example.com', password: '123456' };
 
       jest.spyOn(userRepository, 'findOneBy').mockResolvedValueOnce({ id: 1, ...createUserDto , userToRole: [], userToPermission: [] }); // Simula que el usuario ya existe
@@ -41,7 +41,7 @@ describe('SignUpService', () => {
       expect(userRepository.findOneBy).toHaveBeenCalledWith({ email: 'john@example.com' });
     });
 
-    it('debería llamar a hashPassword y userRepository.save con los valores correctos si el usuario no existe', async () => {
+    it('Should call hashPassword and userRepository.save with the correct values if the user does not exist', async () => {
       const createUserDto: CreteUserDto = { name: 'John', surname: 'Doe', email: 'john@example.com', password: '123456' };
       const hashedPassword = 'hashedPassword';
       const savedUser = { id: 1, ...createUserDto, password: hashedPassword , userToRole: [], userToPermission: [] }; // Respuesta simulada
@@ -64,7 +64,7 @@ describe('SignUpService', () => {
   });
 
   describe('hashPassword', () => {
-    it('debería generar un hash con la contraseña', async () => {
+    it('Should generate a hash with the password', async () => {
       const password = '123456';
       const salt = 'randomSalt';
       const hashedPassword = 'hashedPassword';

@@ -25,12 +25,12 @@ describe('SignUpController', () => {
     signUpService = module.get<SignUpService>(SignUpService);
   });
 
-  it('debería estar definido', () => {
+  it('Should be defined', () => {
     expect(signUpController).toBeDefined();
   });
 
   describe('create', () => {
-    it('debería llamar a signUpService.create con el DTO correcto', async () => {
+    it('Should call signUpService.create with the correct DTO', async () => {
       const createUserDto: CreteUserDto = { name: 'John', surname:'Elton', email: 'john@example.com', password: '123456' };
       const result = { id: 1, ...createUserDto, userToRole: [], userToPermission: [] }; // Respuesta simulada
 
