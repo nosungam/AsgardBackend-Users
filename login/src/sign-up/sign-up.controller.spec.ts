@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SignUpController } from './sign-up.controller';
 import { SignUpService } from './sign-up.service';
-import { CreteUserDto } from './dto/createUser.dto';
+import { CreteUserDto } from './Dto/createUser.dto';
 
 describe('SignUpController', () => {
   let signUpController: SignUpController;

@@ -13,7 +13,7 @@ export class SignUpService {
     async create(body: CreteUserDto) {
         const { email, password, name, surname} = body;
 
-        if (this.userRepository.findOneBy({ email })) { throw new Error('User already exists'); }
+        if (await this.userRepository.findOneBy({ email })) { throw new Error('User already exists'); }
 
         const hashedPassword = await this.hashPassword(password);
         return await this.userRepository.save({email:email, password:hashedPassword, name:name, surname:surname});
