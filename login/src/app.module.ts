@@ -26,6 +26,5 @@ import { SignUpModule } from './sign-up/sign-up.module';
     LoginModule,
     AuthModule,
     SignUpModule],
-  controllers: [SignUpController],
 })
 export class AppModule {}
