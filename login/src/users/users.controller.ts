@@ -5,9 +5,9 @@ import { UpdateUserDto } from './DTO/updateUser.dto';
 @Controller('users')
 export class UsersController {
     constructor(private userService: UsersService) {}
-    @Get()
-    findAll() {
-        return this.userService.findAll();
+    @Get(':email')
+    findUserByEmail(@Param('email') email: string) {
+        return this.userService.findUserByEmail(email);
     }
     @Put(':id')
     update(@Body() body: UpdateUserDto, @Param('id') id: number) {

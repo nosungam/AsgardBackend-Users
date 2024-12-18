@@ -14,10 +14,14 @@ export class UsersService {
         @InjectRepository(UserToPermission) private userToPermissionRepository:Repository<UserToPermission>
     ) {}
     
-    async findAll() {
-        const usuarios = await this.userRepository.find();
-        const data = usuarios.map(usuario=>{return {email: usuario.email, name: usuario.name}});
-        return data;
+    async findUserByEmail(email: string) {
+        try{
+            const usuario = await this.userRepository.findOneBy({email});
+            return {name: usuario.name};
+        }
+        catch(e){
+            throw e;
+        }
     }
     update(body: UpdateUserDto, id: number) {
         return this.userRepository.update({id}, body);
