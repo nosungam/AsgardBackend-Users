@@ -7,6 +7,7 @@ import { SignUpController } from './sign-up.controller';
 @Module({
   providers: [SignUpService],
   imports:[TypeOrmModule.forFeature([User])],
-  controllers: [SignUpController]
+  controllers: [SignUpController],
+  exports: [SignUpService]
 })
 export class SignUpModule {}
