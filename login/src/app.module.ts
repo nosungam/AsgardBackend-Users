@@ -15,7 +15,7 @@ import { SignUpModule } from './sign-up/sign-up.module';
       port: 5431,
       username: 'postgres',
       password: 'postgres',
-      database: 'usuarios',
+      database: 'postgres',
       entities: [__dirname + '/**/*.entities{.ts,.js}'],
       synchronize: true
     }),
