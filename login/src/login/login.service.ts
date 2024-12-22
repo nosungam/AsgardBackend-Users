@@ -3,7 +3,7 @@ import { LoginDto } from './DTO/login.dto';
 import { User } from '../entities/user.entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { compare } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../consts/token';
 
@@ -38,6 +38,14 @@ export class LoginService {
     
     generateRefreshToken(user) {
         return sign(user, REFRESH_TOKEN_SECRET);
+    }
+
+    async hashPassword(body: LoginDto) {
+        const user = await this.userRepository.findOne({where: {email: body.email}});
+        const { password } = body;
+        const salt = await genSalt(10);
+        const hashedPassword = await hash(password, salt);
+        await this.userRepository.update(user, {password: hashedPassword});
     }
 }
 
