@@ -9,6 +9,11 @@ export class UsersController {
     findUserByEmail(@Param('email') email: string) {
         return this.userService.findUserByEmail(email);
     }
+
+    @Get()
+    findAll() {
+        return this.userService.findAll();
+    }
     @Put(':id')
     update(@Body() body: UpdateUserDto, @Param('id') id: number) {
         return this.userService.update(body, id);

@@ -47,5 +47,12 @@ export class LoginService {
         const hashedPassword = await hash(password, salt);
         await this.userRepository.update(user, {password: hashedPassword});
     }
+
+    async getHash() {
+        const password = 'admin123'; // password456  //  admin123
+        const salt = await genSalt(10);
+        const hashedPassword = await hash(password, salt);
+        console.log(hashedPassword)
+    }
 }
 

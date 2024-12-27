@@ -35,4 +35,8 @@ export class UsersService {
     addRole(userId: number, roleId: number) {
         return this.userToRoleRepository.save({userId, roleId});
     }
+
+    findAll() {
+        return this.userRepository.find();
+    }
 }
