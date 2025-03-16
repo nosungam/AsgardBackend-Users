@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreteUserDto } from './Dto/createUser.dto';
+import { CreateUserDto } from './Dto/createUser.dto';
 import { hash, genSalt } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entities';
@@ -10,7 +10,7 @@ export class SignUpService {
     constructor(
         @InjectRepository(User) private userRepository:Repository<User>
     ) {}
-    async create(body: CreteUserDto) {
+    async create(body: CreateUserDto) {
         const { email, password, name, surname} = body;
 
         if (await this.userRepository.findOneBy({ email })) { throw new Error('User already exists'); }
