@@ -17,7 +17,10 @@ export class UsersService {
     async findUserByEmail(email: string) {
         try{
             const usuario = await this.userRepository.findOneBy({email});
-            return {name: usuario.name};
+            return {
+                name: usuario.name, 
+                id: usuario.id
+            };
         }
         catch(e){
             throw e;
