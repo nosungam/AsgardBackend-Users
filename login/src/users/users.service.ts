@@ -18,7 +18,7 @@ export class UsersService {
         try{
             const usuario = await this.userRepository.findOneBy({email});
             return {
-                name: usuario.name, 
+                name: usuario.username, 
                 id: usuario.id
             };
         }

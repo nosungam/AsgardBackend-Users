@@ -6,6 +6,10 @@ import { LoginModule } from './login/login.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { SignUpModule } from './sign-up/sign-up.module';
+import { RecoverPasswordModule } from './recover-password/recover-password.module';
+import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -19,11 +23,29 @@ import { SignUpModule } from './sign-up/sign-up.module';
       entities: [__dirname + '/**/*.entities{.ts,.js}'],
       synchronize: true
     }),
+    ConfigModule.forRoot({
+      isGlobal: true}),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      },
+      defaults: {
+        from: '"Soporte" <no-reply@asgard.com>',
+      },
+    }),
     RolesModule,
     PermissionsModule,
     UsersModule,
     LoginModule,
+    RecoverPasswordModule,
     AuthModule,
-    SignUpModule],
+    SignUpModule,
+    RecoverPasswordModule],
 })
 export class AppModule {}

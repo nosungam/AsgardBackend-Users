@@ -11,12 +11,12 @@ export class SignUpService {
         @InjectRepository(User) private userRepository:Repository<User>
     ) {}
     async create(body: CreateUserDto) {
-        const { email, password, name, surname} = body;
+        const { email, password, username} = body;
 
         if (await this.userRepository.findOneBy({ email })) { throw new Error('User already exists'); }
 
         const hashedPassword = await this.hashPassword(password);
-        return await this.userRepository.save({email:email, password:hashedPassword, name:name, surname:surname});
+        return await this.userRepository.save({email:email, password:hashedPassword, username});
     }
     async hashPassword(password) {
         const salt = await genSalt(10);
