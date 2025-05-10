@@ -42,4 +42,8 @@ export class UsersService {
     findAll() {
         return this.userRepository.find();
     }
+
+    updateImg(id: number, img: string) {
+        return this.userRepository.update({id}, {img});
+    }
 }

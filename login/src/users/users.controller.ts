@@ -14,6 +14,10 @@ export class UsersController {
     findAll() {
         return this.userService.findAll();
     }
+    @Put('img/:id')
+    updateImg(@Param('id') id: number, @Body('img') img: string) {
+        return this.userService.updateImg(id, img);
+    }
     @Put(':id')
     update(@Body() body: UpdateUserDto, @Param('id') id: number) {
         return this.userService.update(body, id);
@@ -30,4 +34,5 @@ export class UsersController {
     addRole(@Param('id') id: number, @Body('roleId') roleId: number) {
         return this.userService.addRole(id, roleId);
     }
+
 }
