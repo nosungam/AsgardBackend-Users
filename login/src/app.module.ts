@@ -36,7 +36,7 @@ import { JwtModule } from '@nestjs/jwt';
         },
       },
       defaults: {
-        from: '"Soporte" <no-reply@asgard.com>',
+        from: '"Support" <no-reply@asgard.com>',
       },
     }),
     RolesModule,

@@ -12,42 +12,41 @@ export class RecoverPasswordService {
         @InjectRepository(User) private userRepository: Repository<User>,
         private readonly mailerService: MailerService,
         private readonly jwtService: JwtService,
-    ) {}
+    ) { }
 
     async recoverPassword(email: string) {
         const user = await this.userRepository.findOneBy({ email });
         if (!user) {
             throw new Error('User not found');
         }
-        
 
         const token = this.jwtService.sign({ sub: user.id }, { expiresIn: '1h' });
 
-        const resetLink = `localhost:4200/reset-password?token=${token}`;
+        const resetLink = `http://localhost:4200/reset-password?token=${token}`;
 
         await this.mailerService.sendMail({
             to: email,
-            subject: 'Recuperación de contraseña',
+            subject: 'Password Recovery',
             html: `
-                <p>Hola,</p>
-                <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+                <p>Hello,</p>
+                <p>Click the link below to reset your password:</p>
                 <a href="${resetLink}">${resetLink}</a>
-                <p>Este enlace expirará en 1 hora.</p>
+                <p>This link will expire in 1 hour.</p>
             `,
-            });
+        });
         return { message: 'Recovery email sent' };
     }
     async resetPassword(password: string, token) {
         try {
             const payload = this.jwtService.verify(token);
             const user = await this.userRepository.findOne({ where: { id: payload.sub } });
-        
+
             user.password = await hash(password, 10);
             await this.userRepository.save(user);
-        
+
             return { message: 'Password updated succesfully' };
-          } catch (e) {
+        } catch (e) {
             throw new UnauthorizedException('invalid token or expired token');
-          }
+        }
     }
 }
